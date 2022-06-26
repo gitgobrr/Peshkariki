@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIImage
 
 protocol PictureChangedDelegate {
-    func updateImage(difference: (old: UIImage, new: UIImage))
+    func updateImage(difference: (oldImage: UIImage, newImage: UIImage))
 }
 
 protocol DataChangedDelegate {
@@ -23,11 +23,11 @@ class HomeViewModel {
     var pictureDelegate: PictureChangedDelegate?
 
     var pictureList: [Picture]
-    var images: [UIImage] { // image List
+    var images: [UIImage] {
         didSet {
             homeDelegate?.viewModelUpdate()
-            if let difference = zip(oldValue, images).first(where: { (old,new) in
-                !(old.isEqual(new))
+            if let difference = zip(oldValue, images).first(where: { (oldImage,newImage) in
+                !(oldImage.isEqual(newImage))
             }) {
                 pictureDelegate?.updateImage(difference: difference)
                 if let index = favouritesViewModel.favouriteListImages.firstIndex(where: { img in

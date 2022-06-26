@@ -9,8 +9,6 @@ import UIKit
 
 class PictureDetailsViewController: UIViewController, DataChangedDelegate, PictureChangedDelegate {
     
-    
-    
     func alert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -20,10 +18,10 @@ class PictureDetailsViewController: UIViewController, DataChangedDelegate, Pictu
         }
     }
     
-    func updateImage(difference: (old: UIImage, new: UIImage)) {
-        if self.image!.isEqual(difference.old) {
+    func updateImage(difference: (oldImage: UIImage, newImage: UIImage)) {
+        if self.image!.isEqual(difference.oldImage) {
             DispatchQueue.main.async {
-                self.image = difference.new
+                self.image = difference.newImage
                 self.detailPicture.image = self.image
             }
         }
@@ -35,10 +33,8 @@ class PictureDetailsViewController: UIViewController, DataChangedDelegate, Pictu
         }
     }
     
-    //MARK: -
     
-    var image: UIImage?
-
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +49,8 @@ class PictureDetailsViewController: UIViewController, DataChangedDelegate, Pictu
         pictureDetailsViewModel.task = nil
         pictureDetailsViewModel.stats = nil
     }
+    
+    var image: UIImage?
     
     func configurePicture() {
         detailPicture.image = image

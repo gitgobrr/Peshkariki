@@ -9,6 +9,7 @@ import UIKit
 
 class FavouritesViewController: UITableViewController, DataChangedDelegate {
     
+    // MARK: DataChangedDelegate
     func alert(title: String, message: String) {}
     
     func viewModelUpdate() {
@@ -17,13 +18,14 @@ class FavouritesViewController: UITableViewController, DataChangedDelegate {
         }
     }
     
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         favouritesViewModel.favouritesDelegate = self
     }
     
-    // MARK: - Table view data source
+    // MARK: Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favouritesViewModel.favouriteList.count
@@ -31,13 +33,13 @@ class FavouritesViewController: UITableViewController, DataChangedDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "picture", for: indexPath) as! PictureTableViewCell
-        
         cell.label.text = favouritesViewModel.favouriteList[indexPath.row].user.name!
         cell.picture.image = favouritesViewModel.favouriteListImages[indexPath.row]
         
         return cell
     }
     
+    // MARK: Table view delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return homeViewModel.cellSize!.width
     }

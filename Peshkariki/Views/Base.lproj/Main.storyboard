@@ -67,7 +67,7 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="searchBar" id="Qxg-Nv-9IN" customClass="SearchBarView" customModule="Peshkariki" customModuleProvider="target">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="searchBar" id="Qxg-Nv-9IN">
                             <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
@@ -80,9 +80,6 @@
                                     </connections>
                                 </searchBar>
                             </subviews>
-                            <connections>
-                                <outlet property="searchBar" destination="ZEW-ZU-zTN" id="iHZ-ox-3yo"/>
-                            </connections>
                         </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="f2u-OC-zbP" id="5f2-sM-hGn"/>
@@ -298,7 +295,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3Uy-rr-j6r"/>
+        <segue reference="uIV-97-7b1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="mappin" catalog="system" width="105" height="128"/>

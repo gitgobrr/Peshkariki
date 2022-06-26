@@ -24,7 +24,6 @@
 		A534A98E281D962B000CC156 /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534A98D281D962B000CC156 /* UnsplashAPI.swift */; };
 		A534A996281DB1EA000CC156 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A534A995281DB1EA000CC156 /* FavouritesViewController.swift */; };
 		A54A7D94285F4BA300DC288E /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54A7D93285F4BA300DC288E /* FavouritesViewModel.swift */; };
-		A57C2AFF285A104700354E1D /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C2AFE285A104600354E1D /* SearchBarView.swift */; };
 		A599442E28203CBC00C69F61 /* PictureDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A599442D28203CBC00C69F61 /* PictureDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		A534A98D281D962B000CC156 /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 		A534A995281DB1EA000CC156 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		A54A7D93285F4BA300DC288E /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
-		A57C2AFE285A104600354E1D /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		A58B937728639DBE00040891 /* debug.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.example.xcconfig; sourceTree = "<group>"; };
 		A58B937928639FE500040891 /* debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = debug.xcconfig; sourceTree = "<group>"; };
 		A599442D28203CBC00C69F61 /* PictureDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailsViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 				A5279CF4281F2EAA000E4506 /* PictureCell.swift */,
 				A525129C2823492000592DD2 /* PictureTableViewCell.swift */,
 				A52953B52821F38100F519EB /* PictureView.swift */,
-				A57C2AFE285A104600354E1D /* SearchBarView.swift */,
 				A52512922822994900592DD2 /* StatsView.swift */,
 				A534A97F281D8E36000CC156 /* LaunchScreen.storyboard */,
 			);
@@ -249,7 +246,6 @@
 				A534A977281D8E35000CC156 /* SceneDelegate.swift in Sources */,
 				A525129D2823492000592DD2 /* PictureTableViewCell.swift in Sources */,
 				A52953B02821D04500F519EB /* HomeViewController.swift in Sources */,
-				A57C2AFF285A104700354E1D /* SearchBarView.swift in Sources */,
 				A52512A128241B4A00592DD2 /* HomeViewModel.swift in Sources */,
 				A599442E28203CBC00C69F61 /* PictureDetailsViewController.swift in Sources */,
 				A52512932822994900592DD2 /* StatsView.swift in Sources */,

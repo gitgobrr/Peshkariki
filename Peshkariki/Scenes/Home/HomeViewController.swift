@@ -22,46 +22,32 @@ extension UICollectionView {
     }
 }
 
-class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
-                            UISearchBarDelegate,
-                            DataChangedDelegate {
+class HomeViewController: UICollectionViewController {
     
-    // MARK: - DataChangedDelegate
-    
-    func alert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func viewModelUpdate() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureCollectionView()
+        homeViewModel.homeDelegate = self
+        homeViewModel.fetchData()
+    }
+    
+    var searchText: String? = nil
+    let viewModel = HomeViewModel()
+    
+    func configureCollectionView() {
         collectionView.showsVerticalScrollIndicator = false
-        
         let sectionInsetWidth = collectionView.flowLayout.sectionInset.left * collectionView.itemsPerRow
         let interItemWidth = (collectionView.itemsPerRow - 1) * collectionView.flowLayout.minimumInteritemSpacing
         let paddingWidth = sectionInsetWidth + interItemWidth
         let availableWidth = collectionView.frame.width - paddingWidth
         let widthPerItem = availableWidth / collectionView.itemsPerRow
         
-        homeViewModel.homeDelegate = self
         homeViewModel.cellSize = CGSize(width: widthPerItem, height: widthPerItem)
-
-        homeViewModel.fetchData()
     }
     
-    // MARK: - Navigation
-
+    // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let pictureDetailsVC = segue.destination as! PictureDetailsViewController
         let cell = sender as! PictureCell
@@ -74,8 +60,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
 
-    // MARK: UICollectionViewDataSource
-
+    // MARK:  UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return homeViewModel.images.count
     }
@@ -88,37 +73,35 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return cell
     }
     
-    
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    
-        if indexPath.item == homeViewModel.pictureList.count-1 {
-            homeViewModel.currentPage += 1
-            homeViewModel.realPage = homeViewModel.currentPage
-            
-            if let query = searchText {
-                homeViewModel.searchData(query: query, page: homeViewModel.currentPage)
-            } else {
-                homeViewModel.fetchData()
-            }
-        }
-    }
-    // MARK: - Search Bar
-
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let searchView = collectionView.dequeueReusableSupplementaryView(ofKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: "searchBar", for: indexPath)
         
         return searchView
     }
     
-    var searchText: String? = nil
+    // MARK:  UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == homeViewModel.pictureList.count-1 {
+            if let query = searchText {
+                homeViewModel.currentPage += 1
+                homeViewModel.realPage = homeViewModel.currentPage
+                homeViewModel.searchData(query: query, page: homeViewModel.currentPage)
+            } else {
+                homeViewModel.fetchData()
+            }
+        }
+    }
+}
+
+
+// MARK: - Search Bar
+extension HomeViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         for task in homeViewModel.searchTasks {
             task.cancel()
         }
         homeViewModel.searchTasks.removeAll()
-        
         if (searchBar.text!.isEmpty) {
             homeViewModel.pictureList = homeViewModel.realList
             homeViewModel.images = homeViewModel.realImages
@@ -132,10 +115,28 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             searchText = searchBar.text!.lowercased()
             homeViewModel.searchData(query: searchText!, page: homeViewModel.currentPage)
         }
-        
     }
+}
+
+// MARK: - DataChangedDelegate
+extension HomeViewController: DataChangedDelegate {
     
-    // MARK: UICollectionViewDelegateFlowLayout
+    func alert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func viewModelUpdate() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+}
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return homeViewModel.cellSize!
@@ -149,6 +150,5 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return collectionView.flowLayout.sectionInset
     }
-    
 }
 
